@@ -1,12 +1,51 @@
-# retail_sales_insights
-This particular project deals with sales insight based on the yearly analysis provided by the particular database used.
-The required database was taken from a Git repository available online.
-After downloading and loading the data into an Excel sheet, I was able to complete all the cleaning processes with the help of OpenAI and other help available online.
-Then I uploaded the database in Excel to SQL by converting the '.xlsx' file into a '.csv' file, and then Server< Data-Import and drop the path of the file in **import from dump project folder** bubble and tap **select import** button.
-Once the data is imported, open a new Query file and perform the operations mentioned in another README file.
-After the hectic process, open **Tableau Desktop** and under TO A SERVER, select MySQL, and login to your root in MySQL.
-Once a connection has been established, select sales database from **database** dropdown menu.
-![Screenshot (80)](https://github.com/RG2115/retail_sales_insights/assets/89479277/c9af2813-68b2-4c49-812a-fe3485fbc409)
-I put up the relations as shown in the image, then created worksheets for different aspects like Revenue, Quantity, Revenue by market, etc.
-For the dashboard creation, I joined all the worksheets with the Sheets option and made a meaningful visualization.
-For a particular insight, select the sheet and click on the filter option, this will result in showing visualization for the particular aspect selected.
+## Sales Insights Data Analysis Project
+
+### Instructions to setup mysql on your local computer
+
+1. Follow step in this video to install mysql on your local computer
+https://www.youtube.com/watch?v=WuBcTJnIuzo
+
+1. SQL database dump is in db_dump.sql file above. Download `db_dump.sql` file to your local computer and import it as per instructions given in the tutorial video
+
+### Data Analysis Using SQL
+
+1. Show all customer records
+
+    `SELECT * FROM customers;`
+
+1. Show total number of customers
+
+    `SELECT count(*) FROM customers;`
+
+1. Show transactions for Chennai market (market code for chennai is Mark001
+
+    `SELECT * FROM transactions where market_code='Mark001';`
+
+1. Show distrinct product codes that were sold in chennai
+
+    `SELECT distinct product_code FROM transactions where market_code='Mark001';`
+
+1. Show transactions where currency is US dollars
+
+    `SELECT * from transactions where currency="USD"`
+
+1. Show transactions in 2020 join by date table
+
+    `SELECT transactions.*, date.* FROM transactions INNER JOIN date ON transactions.order_date=date.date where date.year=2020;`
+
+1. Show total revenue in year 2020,
+
+    `SELECT SUM(transactions.sales_amount) FROM transactions INNER JOIN date ON transactions.order_date=date.date where date.year=2020 and transactions.currency="INR\r" or transactions.currency="USD\r";`
+	
+1. Show total revenue in year 2020, January Month,
+
+    `SELECT SUM(transactions.sales_amount) FROM transactions INNER JOIN date ON transactions.order_date=date.date where date.year=2020 and and date.month_name="January" and (transactions.currency="INR\r" or transactions.currency="USD\r");`
+
+1. Show total revenue in year 2020 in Chennai
+
+    `SELECT SUM(transactions.sales_amount) FROM transactions INNER JOIN date ON transactions.order_date=date.date where date.year=2020
+and transactions.market_code="Mark001";`
+
+
+
+
